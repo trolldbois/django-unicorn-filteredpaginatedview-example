@@ -1,0 +1,62 @@
+<div>
+    <div>
+        <div class="col s8"></div>
+        <div class="input-field col s4" align="right">
+                <input id="filter" type="text" unicorn:model="my_filter" class="validate"/>
+                <label for="filter">filter</label>
+        </div>
+    </div>
+
+    {% if movies %}
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                <th><abbr title="Title">Title</abbr></th>
+                <th><abbr title="Genre">Genre</abbr></th>
+                <th><abbr title="Year">Year</abbr></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                <th><abbr title="Title">Title</abbr></th>
+                <th><abbr title="Genre">Genre</abbr></th>
+                <th><abbr title="Year">Year</abbr></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            {% for movie in movies %}
+                <tr>
+                <th>{{ movie.title }}</th>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.year }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <p>No movies are available.</p>
+    {% endif %}
+
+  {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination" align="right">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a unicorn:click.prevent="page={{ page_obj.previous_page_number }}" href="">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a unicorn:click.prevent="page={{ page_obj.next_page_number }}" href="">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}
+
+</div>
